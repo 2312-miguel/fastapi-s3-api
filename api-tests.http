@@ -1,6 +1,9 @@
 ### Health Check
 GET http://localhost:8000/
 
+### Health Check with Configuration Validation
+GET http://localhost:8000/health
+
 ### List all files in S3 bucket
 GET http://localhost:8000/files
 
@@ -15,8 +18,22 @@ Content-Type: text/plain
 < ./test.txt
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
+### Upload an image file
+POST http://localhost:8000/upload
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="example.jpg"
+Content-Type: image/jpeg
+
+< ./example.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
 ### Generate download URL for a specific file
 GET http://localhost:8000/download/test.txt
 
 ### Generate download URL for another file
-GET http://localhost:8000/download/example.pdf 
+GET http://localhost:8000/download/example.pdf
+
+### Test error handling - Try to download non-existent file
+GET http://localhost:8000/download/non-existent-file.txt 
